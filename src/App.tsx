@@ -1,26 +1,73 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+  
+import React, {useState } from 'react';
+import ReactDOM from "react-dom";
+import axios from 'axios';
+//import Unsplash from 'unsplash-js';
+import env from './env.json'
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// require syntax
+// const Unsplash = require('unsplash-js').default;
+// const toJson = require('unsplash-js').toJson;
+
+
+// const unsplash = new Unsplash({ accessKey: env.API_KEY });
+
+export default function App() { 
+    const [photo, setPhoto] = useState("");
+    const [clientId, setClientId] = useState("Fh_M0A0Ou9gGMNFk41QFpiX_lY9VjwXH6K7RFidx0MA");
+    
+    const [result, setResult] = useState([]);
+
+    const handleChange = (event: any ) => {
+        setPhoto(event.target.value);
+    }
+    const handleSubmit = (event: any) => {
+        console.log(photo);
+        const url = 
+        "https://api.unsplash.com/search/photos?page=1&query="+
+        photo+
+        "&client_id="+
+        clientId;
+
+        axios.get(url).then(response => {
+            console.log(response.data.results);
+            setResult(response.data.results)
+        });
+    }
+     
+    return (
+        <div className="App"> 
+            <div className="logo-and-searchbar-container">
+                <h1 className="logo-unsplash-h1">Usnplash Photo Search in React</h1>
+                <h4 className="logo-unsplash-h4">The internet’s source of freely-usable images.
+                    Powered by creators everywhere.</h4>
+                <div className="search-bar-with-button-container">
+                    <input className="search-bar"
+                        onChange={handleChange} 
+                        onInput={handleSubmit}
+                        type="text" name="photo" 
+                        placeholder="Search for high resolution photos" 
+                    />
+                    <button 
+                        onClick={handleSubmit} 
+                        type="submit">
+                        Search
+                    </button>
+                </div>
+            </div>
+
+            <div>
+            {result.map((item: any) => (
+                <img src={item.urls.small} />
+            ))}
+            </div>
+        </div>
+    );
 }
 
-export default App;
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
+
+
