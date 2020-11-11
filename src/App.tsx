@@ -14,6 +14,8 @@ export default function App() {
     const [resultCollection, setResultCollection] = useState([]);
     const [resultPhotos, setResultPhotos] = useState([]);
     const [toggleAutocomplete, settoggleAutocomplete] = useState(false);
+    const [word, setWord] = useState("");
+    const [wordArray, setWordArray] = useState(["test"]);
 
     const handleChange = (event: any ) => {
         setPhoto(event.target.value);
@@ -24,7 +26,7 @@ export default function App() {
 
     const handleSearchPhotos = (event:any) => {
         console.log("handleSearchPhotos: " + photo)
-        unsplash.search.photos(photo, 1, 10)
+        unsplash.search.photos(photo, 1, 15)
             .then(toJson)
             .then(json => {
                 console.log("handlePhotosJsonOnly");
@@ -62,23 +64,28 @@ export default function App() {
         }
     }
 
-    const [word, setWord] = useState("  ");
-    const [wordArray, setWordArray] = useState([]);
-
     const ifTheSameWord = (resultCollection: any) => {
+        setWordArray([]);
         resultCollection.map((item: any) => {
-            if (item.title != word) {
-                setWordArray(item.title);
+            if (item.title.toString() != word) {
+                console.log("item.title");
+                console.log(item.title);
                 setWord(item.title);
-                console.log("Dobre" + word)
+                wordArray.push(item.title);
+                
+                console.log("Dobre" + item.title)
             } else {
-                console.log("Złe" + word)
+                console.log("Złe" + item.title)
             }
         });
+        console.log("wordArray");
+        console.log(wordArray);
     }
 
-   
-
+    const updatePhoto = (photo: any) => {
+        setPhoto(photo);
+        console.log("photo updated" + photo);
+    }
 
     return (
         <div className="App">
@@ -103,7 +110,13 @@ export default function App() {
                         />
                     </div>
                     <div className="toogleAutocomplete">
-                            {toggleAutocomplete ?  RenderListAutocomplete(resultCollection) : <span>No! 👎</span>}
+                            {toggleAutocomplete ?  
+                                <RenderListAutocomplete 
+                                    resultCollection={resultCollection} 
+                                    updatePhoto={updatePhoto} 
+                                    handleSearchCollections={handleSearchCollections}
+                                /> 
+                                : <span>No matches! 👎</span>}
                     </div>
                 </div>  
             </div>
@@ -113,8 +126,7 @@ export default function App() {
                 
                 <div className="one-result-container">
                 <h1>{item.title}</h1>    
-                {/* <h4 className="logo-unsplash-h4">{item.cover_photo.alt_description}</h4> */} 
-                {/* some problem w ith alt_description if is null */}
+                <h4 className="logo-unsplash-h4">{item.cover_photo.alt_description}</h4>
                 <img src={item.cover_photo.urls.small} />
                 </div>
             ))}

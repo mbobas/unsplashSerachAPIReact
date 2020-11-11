@@ -1,16 +1,29 @@
-import React, {useState} from 'react';
-
-const RenderListAutocomplete = (resultCollection: any) => {
+import React, {useState, Component} from 'react';
+interface RenderListAutocompleteProps {
+    resultCollection: any,
+    updatePhoto: any,
+    handleSearchCollections: any,
+}
+class RenderListAutocomplete extends Component<RenderListAutocompleteProps> {
+    render() {
     return (
         <div className="field-container">
-        {resultCollection.map((item: any) => (
+        {this.props.resultCollection.map((item: any) => (
             <div className="item">
-            <span className="title">{item.title}</span>    
+                <button 
+                    className="title"
+                    onClick={this.props.updatePhoto(item.title) && this.props.handleSearchCollections() }
+                >
+                        {item.title}
+                </button>    
             </div>
+            
         ))}
         </div>
-    )
+    )}
   };
 
 
 export default RenderListAutocomplete;
+
+
