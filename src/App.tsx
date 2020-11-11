@@ -4,7 +4,7 @@ import axios from 'axios';
 import Unsplash, { toJson } from 'unsplash-js';
 import env from './env.json'
 import "./App.css";
-import AutocompleteField from './components/autocomplete/AutocompleteField';
+import RenderListAutocomplete from './components/autocomplete/RenderListAutocomplete';
 
 export default function App() { 
     const unsplash = new Unsplash({ accessKey: env.API_KEY });
@@ -18,6 +18,8 @@ export default function App() {
     const handleChange = (event: any ) => {
         setPhoto(event.target.value);
         console.log("handleChange: value");
+        ifTheSameWord(resultCollection);
+        handleSearchCollections(event);
     }
 
     const handleSearchPhotos = (event:any) => {
@@ -32,7 +34,7 @@ export default function App() {
     }
     const handleSearchCollections = (event:any) => {
         console.log("handleSearchCollections: " + photo)
-        unsplash.search.collections(photo, 1, 50)
+        unsplash.search.collections(photo, 1, 20)
             .then(toJson)
             .then(json => {
                 console.log("result: Collection");
@@ -60,17 +62,22 @@ export default function App() {
         }
     }
 
-    const renderListAutocomplete = (resultCollection: any) => {
-        return (
-            <div className="">
-            {resultCollection.map((item: any) => (
-                <div>
-                <h1>{item.title}</h1>    
-                </div>
-            ))}
-            </div>
-        )
-      };
+    const [word, setWord] = useState("  ");
+    const [wordArray, setWordArray] = useState([]);
+
+    const ifTheSameWord = (resultCollection: any) => {
+        resultCollection.map((item: any) => {
+            if (item.title != word) {
+                setWordArray(item.title);
+                setWord(item.title);
+                console.log("Dobre" + word)
+            } else {
+                console.log("Złe" + word)
+            }
+        });
+    }
+
+   
 
 
     return (
@@ -96,22 +103,23 @@ export default function App() {
                         />
                     </div>
                     <div className="toogleAutocomplete">
-                            {toggleAutocomplete ? renderListAutocomplete(resultCollection) : <span>No! 👎</span>}
+                            {toggleAutocomplete ?  RenderListAutocomplete(resultCollection) : <span>No! 👎</span>}
                     </div>
                 </div>  
             </div>
 
-           
-
             <div className="show-images-container">
             {resultCollection.map((item: any) => (
+                
                 <div className="one-result-container">
                 <h1>{item.title}</h1>    
-                <h4 className="logo-unsplash-h4">{item.cover_photo.alt_description}</h4>
+                {/* <h4 className="logo-unsplash-h4">{item.cover_photo.alt_description}</h4> */} 
+                {/* some problem w ith alt_description if is null */}
                 <img src={item.cover_photo.urls.small} />
                 </div>
             ))}
             </div>
+
         </div>
     );
 }
