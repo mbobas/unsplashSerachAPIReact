@@ -1,10 +1,10 @@
 import React, {useState } from 'react';
 import ReactDOM from "react-dom";
-import axios from 'axios';
 import Unsplash, { toJson } from 'unsplash-js';
 import env from './env.json'
 import "./App.css";
 import RenderListAutocomplete from './components/autocomplete/RenderListAutocomplete';
+import RenderPhotos from './components/renderphotos/RenderPhotos';
 
 export default function App() { 
     const unsplash = new Unsplash({ accessKey: env.API_KEY });
@@ -95,6 +95,18 @@ export default function App() {
             });
     }
 
+    const updateSearchPhoto = (photo: any) => {
+        setPhoto(photo);
+        console.log("photo updated" + photo);
+        unsplash.search.photos(photo, 1, 15)
+        .then(toJson)
+        .then(json => {
+            console.log("Photos Search List");
+            console.log(json);
+            setResultPhotos(json.results)
+        });
+    }
+
     const toggleAutoCompleeteFields = (toggleStatus: any) => {
             settoggleAutocomplete(toggleStatus);
             console.log("toggleAutoCompleeteFields: ");
@@ -109,6 +121,7 @@ export default function App() {
                 updatePhotoCollections={updatePhotoCollections} 
                 handleSearchCollections={handleSearchCollections}
                 toggleAutoCompleeteFields={toggleAutoCompleeteFields}
+                updateSearchPhoto={updateSearchPhoto}
             />)
         } else {
             return (<span>No matches! 👎</span>)
@@ -120,12 +133,12 @@ export default function App() {
             <div className="top-of-app">
                 <div className="logo-and-searchbar-container">
                     <h1 className="logo-unsplash-h1">Usnplash Photo Search in React</h1>
-                    <h4 className="logo-unsplash-h4">The internet’s source of freely-usable images.
+                    <h4 className="logo-unsplash-h1">The internet’s source of freely-usable images.
                         Powered by creators everywhere.</h4>
                     <div className="search-bar-with-button-container">
                         <button 
                             className="searchButton"
-                            onClick={handleSearchCollections} 
+                            onClick={handleSearchCollections && handleSearchPhotos} 
                             type="submit">
                             Search
                         </button>
@@ -142,16 +155,14 @@ export default function App() {
                     </div>
                 </div>  
             </div>
-
-            <div className="show-images-container">
-            {resultCollection.map((item: any) => (
-                <div className="one-result-container">
-                <h1>{item.title}</h1>    
-                <h4 className="logo-unsplash-h4">{item.cover_photo.alt_description}</h4>
-                <img src={item.cover_photo.urls.small} />
-                </div>
-            ))}
-            </div>
+            
+            <RenderPhotos  
+            resultPhotos={resultPhotos} 
+            updatePhotoCollections={updatePhotoCollections} 
+            handleSearchCollections={handleSearchCollections}
+            toggleAutoCompleeteFields={toggleAutoCompleeteFields}
+            updateSearchPhoto={updateSearchPhoto}
+            />
 
         </div>
     );

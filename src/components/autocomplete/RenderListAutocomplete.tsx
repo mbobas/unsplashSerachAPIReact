@@ -1,13 +1,13 @@
 import React, {useState, Component} from 'react';
+import "./autocompletefield.css";
 
 interface RenderListAutocompleteProps {
     resultCollection: any,
     updatePhotoCollections: any,
     handleSearchCollections: any,
     toggleAutoCompleeteFields: any,
+    updateSearchPhoto: any
 }
-
-
 
 class RenderListAutocomplete extends Component<RenderListAutocompleteProps> {
     render() {
@@ -20,6 +20,7 @@ class RenderListAutocomplete extends Component<RenderListAutocompleteProps> {
                     onClick={() => {
                         this.props.updatePhotoCollections(item.title);
                         this.props.toggleAutoCompleeteFields(false); 
+                        this.props.updateSearchPhoto(item.title)
                     }}
                 >
                 

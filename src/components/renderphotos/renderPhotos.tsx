@@ -1,21 +1,28 @@
 import React, {useState, Component} from 'react';
-interface renderPhotosProps {
-    resultCollection: any,
+import "./renderPhotos.css";
+
+interface RenderPhotosProps {
+    resultPhotos: any,
+    updatePhotoCollections: any,
+    handleSearchCollections: any,
+    toggleAutoCompleeteFields: any,
+    updateSearchPhoto: any,
 }
-class renderPhotos extends Component<renderPhotosProps> {
+class RenderPhotos extends Component<RenderPhotosProps> {
     render() {
     return (
-        <div className="field-container">
-        {this.props.resultCollection.map((item: any) => (
-            <div className="item">
-            <span className="title">{item.title}</span>    
-            </div>
-        ))}
+        <div className="show-images-container">
+            {this.props.resultPhotos.map((item: any) => (
+                    <div className="one-result-container">
+                    <span className="title">{item.title}</span>    
+                    <h4 className="title">{item.alt_description}</h4>
+                    <img src={item.urls.small} />
+                    </div>
+                ))}
         </div>
     )}
   };
 
-
-export default renderPhotosProps;
+export default RenderPhotos;
 
 
