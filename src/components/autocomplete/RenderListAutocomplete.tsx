@@ -1,9 +1,14 @@
 import React, {useState, Component} from 'react';
+
 interface RenderListAutocompleteProps {
     resultCollection: any,
-    updatePhoto: any,
+    updatePhotoCollections: any,
     handleSearchCollections: any,
+    toggleAutoCompleeteFields: any,
 }
+
+
+
 class RenderListAutocomplete extends Component<RenderListAutocompleteProps> {
     render() {
     return (
@@ -12,8 +17,12 @@ class RenderListAutocomplete extends Component<RenderListAutocompleteProps> {
             <div className="item">
                 <button 
                     className="title"
-                    onClick={this.props.updatePhoto(item.title) && this.props.handleSearchCollections() }
+                    onClick={() => {
+                        this.props.updatePhotoCollections(item.title);
+                        this.props.toggleAutoCompleeteFields(false); 
+                    }}
                 >
+                
                         {item.title}
                 </button>    
             </div>

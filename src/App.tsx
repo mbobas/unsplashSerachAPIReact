@@ -16,6 +16,7 @@ export default function App() {
     const [toggleAutocomplete, settoggleAutocomplete] = useState(false);
     const [word, setWord] = useState("");
     const [wordArray, setWordArray] = useState(["test"]);
+    const [toggleAutocompleteField, settoggleAutocompleteField] = useState(false);
 
     const handleChange = (event: any ) => {
         setPhoto(event.target.value);
@@ -82,9 +83,36 @@ export default function App() {
         console.log(wordArray);
     }
 
-    const updatePhoto = (photo: any) => {
+    const updatePhotoCollections = (photo: any) => {
         setPhoto(photo);
         console.log("photo updated" + photo);
+        unsplash.search.collections(photo, 1, 20)
+            .then(toJson)
+            .then(json => {
+                console.log("result: Collection");
+                console.log(json.results);
+                setResultCollection(json.results)
+            });
+    }
+
+    const toggleAutoCompleeteFields = (toggleStatus: any) => {
+            settoggleAutocomplete(toggleStatus);
+            console.log("toggleAutoCompleeteFields: ");
+            console.log(toggleStatus);
+    }
+
+    function ShowAutoCompleete() {
+        if (toggleAutocomplete) {  
+            return (
+                <RenderListAutocomplete 
+                resultCollection={resultCollection} 
+                updatePhotoCollections={updatePhotoCollections} 
+                handleSearchCollections={handleSearchCollections}
+                toggleAutoCompleeteFields={toggleAutoCompleeteFields}
+            />)
+        } else {
+            return (<span>No matches! 👎</span>)
+        }
     }
 
     return (
@@ -110,20 +138,13 @@ export default function App() {
                         />
                     </div>
                     <div className="toogleAutocomplete">
-                            {toggleAutocomplete ?  
-                                <RenderListAutocomplete 
-                                    resultCollection={resultCollection} 
-                                    updatePhoto={updatePhoto} 
-                                    handleSearchCollections={handleSearchCollections}
-                                /> 
-                                : <span>No matches! 👎</span>}
+                            <ShowAutoCompleete />
                     </div>
                 </div>  
             </div>
 
             <div className="show-images-container">
             {resultCollection.map((item: any) => (
-                
                 <div className="one-result-container">
                 <h1>{item.title}</h1>    
                 <h4 className="logo-unsplash-h4">{item.cover_photo.alt_description}</h4>
