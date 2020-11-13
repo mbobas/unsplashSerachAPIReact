@@ -1,13 +1,17 @@
 import React, {useState } from 'react';
-import ReactDOM from "react-dom";
+import { useParams } from 'react-router';
 import Unsplash, { toJson } from 'unsplash-js';
-import env from './env.json'
-import "./Home.css";
-import RenderListAutocomplete from './components/autocomplete/RenderListAutocomplete';
-import RenderPhotos from './components/renderphotos/RenderPhotos';
+import env from '../../env.json'
+import "./ResultsPage.css";
+import RenderListAutocomplete from '../../components/autocomplete/RenderListAutocomplete';
+import RenderPhotos from '../../components/renderphotos/RenderPhotos';
+import { Link } from 'react-router-dom';
 
-export default function Home() { 
+export default function ResultsPage() { 
     const unsplash = new Unsplash({ accessKey: env.API_KEY });
+    const { recivedPhoto } : any = useParams();
+    const recivedPhotoShort = recivedPhoto.slice(1, recivedPhoto.length);
+    console.log("recivedPhotoShort: " + recivedPhotoShort);
 
     const [photo, setPhoto] = useState("");
     const [clientId, setClientId] = useState(env.API_KEY);
@@ -136,12 +140,12 @@ export default function Home() {
                     <h4 className="logo-unsplash-h1">The internet’s source of freely-usable images.
                         Powered by creators everywhere.</h4>
                     <div className="search-bar-with-button-container">
-                        <button 
+                        <Link to="/about"><button 
                             className="searchButton"
                             onClick={handleSearchCollections && handleSearchPhotos} 
                             type="submit">
                             Search
-                        </button>
+                        </button></Link>
                         <input className="search-bar"
                             onChangeCapture={autoCompleete}
                             onChange={handleChange} 
@@ -167,9 +171,3 @@ export default function Home() {
         </div>
     );
 }
-
-
-// const rootElement = document.getElementById("root");
-// ReactDOM.render(<App />, rootElement);
-
-

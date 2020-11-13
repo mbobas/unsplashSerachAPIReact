@@ -1,4 +1,5 @@
 import React, {useState, Component} from 'react';
+import { Link } from 'react-router-dom';
 import "./autocompletefield.css";
 
 interface RenderListAutocompleteProps {
@@ -15,7 +16,7 @@ class RenderListAutocomplete extends Component<RenderListAutocompleteProps> {
         <div className="field-container">
         {this.props.resultCollection.map((item: any) => (
             <div className="item">
-                <button 
+            <button 
                     className="title"
                     onClick={() => {
                         this.props.updatePhotoCollections(item.title);
@@ -23,9 +24,9 @@ class RenderListAutocomplete extends Component<RenderListAutocompleteProps> {
                         this.props.updateSearchPhoto(item.title)
                     }}
                 >
-                
+            
                         {item.title}
-                </button>    
+                </button>   
             </div>
             
         ))}
