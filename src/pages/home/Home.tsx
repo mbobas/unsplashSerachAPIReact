@@ -15,33 +15,27 @@ export default function Home() {
     const [resultCollection, setResultCollection] = useState([]);
     const [resultPhotos, setResultPhotos] = useState([]);
     const [toggleAutocomplete, settoggleAutocomplete] = useState(false);
-    const [word, setWord] = useState("");
-    const [wordArray, setWordArray] = useState(["test"]);
-    const [toggleAutocompleteField, settoggleAutocompleteField] = useState(false);
 
     const handleChange = (event: any ) => {
         setPhoto(event.target.value);
         console.log("handleChange: value");
-        ifTheSameWord(resultCollection);
         handleSearchCollections(event);
     }
 
     const handleSearchPhotos = (event:any) => {
-        console.log("handleSearchPhotos: " + photo)
         unsplash.search.photos(photo, 1, 15)
             .then(toJson)
             .then(json => {
-                console.log("handlePhotosJsonOnly");
+                console.log("handleSearchPhotos" + photo);
                 console.log(json);
                 setResultPhotos(json.results)
             });
     }
     const handleSearchCollections = (event:any) => {
-        console.log("handleSearchCollections: " + photo)
         unsplash.search.collections(photo, 1, 20)
             .then(toJson)
             .then(json => {
-                console.log("result: Collection");
+                console.log("handleSearchCollections");
                 console.log(json.results);
                 setResultCollection(json.results)
             });
@@ -49,7 +43,9 @@ export default function Home() {
 
     const onKeyDown = (event:any ) => {
         if (event.key === 'Enter') {
-            handleSearchCollections(event);
+            console.log('OnKeyDown: ' + photo);
+            updateSearchPhoto(photo);
+            settoggleAutocomplete(false);
           }
     }
     const autoCompleete = (event: any) => {
@@ -66,31 +62,13 @@ export default function Home() {
         }
     }
 
-    const ifTheSameWord = (resultCollection: any) => {
-        setWordArray([]);
-        resultCollection.map((item: any) => {
-            if (item.title.toString() != word) {
-                console.log("item.title");
-                console.log(item.title);
-                setWord(item.title);
-                wordArray.push(item.title);
-                
-                console.log("Dobre" + item.title)
-            } else {
-                console.log("Złe" + item.title)
-            }
-        });
-        console.log("wordArray");
-        console.log(wordArray);
-    }
 
     const updatePhotoCollections = (photo: any) => {
         setPhoto(photo);
-        console.log("photo updated" + photo);
         unsplash.search.collections(photo, 1, 20)
             .then(toJson)
             .then(json => {
-                console.log("result: Collection");
+                console.log("updateCollections");
                 console.log(json.results);
                 setResultCollection(json.results)
             });
@@ -98,11 +76,10 @@ export default function Home() {
 
     const updateSearchPhoto = (photo: any) => {
         setPhoto(photo);
-        console.log("photo updated" + photo);
         unsplash.search.photos(photo, 1, 15)
         .then(toJson)
         .then(json => {
-            console.log("Photos Search List");
+            console.log("updateSearchPhoto");
             console.log(json);
             setResultPhotos(json.results)
         });
@@ -110,8 +87,7 @@ export default function Home() {
 
     const toggleAutoCompleeteFields = (toggleStatus: any) => {
             settoggleAutocomplete(toggleStatus);
-            console.log("toggleAutoCompleeteFields: ");
-            console.log(toggleStatus);
+            console.log("Toggle" + toggleStatus);
     }
 
     function ShowAutoCompleete() {
@@ -137,7 +113,7 @@ export default function Home() {
                     <h4 className="logo-unsplash-h1">The internet’s source of freely-usable images.
                         Powered by creators everywhere.</h4>
                     <div className="search-bar-with-button-container">
-                        <Link to="/about"><button 
+                        <Link to={'/:'+photo}><button 
                             className="searchButton"
                             onClick={handleSearchCollections && handleSearchPhotos} 
                             type="submit">
@@ -157,14 +133,17 @@ export default function Home() {
                 </div>  
             </div>
             
-            <RenderPhotos  
+            {/* <RenderPhotos  
             resultPhotos={resultPhotos} 
             updatePhotoCollections={updatePhotoCollections} 
             handleSearchCollections={handleSearchCollections}
             toggleAutoCompleeteFields={toggleAutoCompleeteFields}
             updateSearchPhoto={updateSearchPhoto}
-            />
+            /> */}
 
         </div>
     );
 }
+
+
+

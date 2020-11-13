@@ -19,12 +19,12 @@ class RenderListAutocomplete extends Component<RenderListAutocompleteProps> {
             <button 
                     className="title"
                     onClick={() => {
-                        this.props.updatePhotoCollections(item.title);
+                        //this.props.updatePhotoCollections(item.title);
                         this.props.toggleAutoCompleeteFields(false); 
                         this.props.updateSearchPhoto(item.title)
                     }}
                 >
-            
+                
                         {item.title}
                 </button>   
             </div>

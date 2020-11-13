@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, {useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import Unsplash, { toJson } from 'unsplash-js';
 import env from '../../env.json'
@@ -7,44 +7,38 @@ import RenderListAutocomplete from '../../components/autocomplete/RenderListAuto
 import RenderPhotos from '../../components/renderphotos/RenderPhotos';
 import { Link } from 'react-router-dom';
 
+
 export default function ResultsPage() { 
     const unsplash = new Unsplash({ accessKey: env.API_KEY });
     const { recivedPhoto } : any = useParams();
     const recivedPhotoShort = recivedPhoto.slice(1, recivedPhoto.length);
-    console.log("recivedPhotoShort: " + recivedPhotoShort);
 
     const [photo, setPhoto] = useState("");
     const [clientId, setClientId] = useState(env.API_KEY);
     const [resultCollection, setResultCollection] = useState([]);
     const [resultPhotos, setResultPhotos] = useState([]);
     const [toggleAutocomplete, settoggleAutocomplete] = useState(false);
-    const [word, setWord] = useState("");
-    const [wordArray, setWordArray] = useState(["test"]);
-    const [toggleAutocompleteField, settoggleAutocompleteField] = useState(false);
 
     const handleChange = (event: any ) => {
         setPhoto(event.target.value);
         console.log("handleChange: value");
-        ifTheSameWord(resultCollection);
         handleSearchCollections(event);
     }
 
     const handleSearchPhotos = (event:any) => {
-        console.log("handleSearchPhotos: " + photo)
         unsplash.search.photos(photo, 1, 15)
             .then(toJson)
             .then(json => {
-                console.log("handlePhotosJsonOnly");
+                console.log("handleSearchPhotos" + photo);
                 console.log(json);
                 setResultPhotos(json.results)
             });
     }
     const handleSearchCollections = (event:any) => {
-        console.log("handleSearchCollections: " + photo)
         unsplash.search.collections(photo, 1, 20)
             .then(toJson)
             .then(json => {
-                console.log("result: Collection");
+                console.log("handleSearchCollections");
                 console.log(json.results);
                 setResultCollection(json.results)
             });
@@ -52,11 +46,13 @@ export default function ResultsPage() {
 
     const onKeyDown = (event:any ) => {
         if (event.key === 'Enter') {
-            handleSearchCollections(event);
+            console.log('OnKeyDown: ' + photo);
+            updateSearchPhoto(photo);
+            settoggleAutocomplete(false);
           }
     }
     const autoCompleete = (event: any) => {
-        if (event.target.value.length == 3){
+        if (event.target.value.length === 3){
             settoggleAutocomplete(true);
             console.log(toggleAutocomplete);
         }
@@ -69,31 +65,13 @@ export default function ResultsPage() {
         }
     }
 
-    const ifTheSameWord = (resultCollection: any) => {
-        setWordArray([]);
-        resultCollection.map((item: any) => {
-            if (item.title.toString() != word) {
-                console.log("item.title");
-                console.log(item.title);
-                setWord(item.title);
-                wordArray.push(item.title);
-                
-                console.log("Dobre" + item.title)
-            } else {
-                console.log("Złe" + item.title)
-            }
-        });
-        console.log("wordArray");
-        console.log(wordArray);
-    }
 
     const updatePhotoCollections = (photo: any) => {
         setPhoto(photo);
-        console.log("photo updated" + photo);
         unsplash.search.collections(photo, 1, 20)
             .then(toJson)
             .then(json => {
-                console.log("result: Collection");
+                console.log("updateCollections");
                 console.log(json.results);
                 setResultCollection(json.results)
             });
@@ -101,11 +79,10 @@ export default function ResultsPage() {
 
     const updateSearchPhoto = (photo: any) => {
         setPhoto(photo);
-        console.log("photo updated" + photo);
         unsplash.search.photos(photo, 1, 15)
         .then(toJson)
         .then(json => {
-            console.log("Photos Search List");
+            console.log("updateSearchPhoto");
             console.log(json);
             setResultPhotos(json.results)
         });
@@ -113,8 +90,7 @@ export default function ResultsPage() {
 
     const toggleAutoCompleeteFields = (toggleStatus: any) => {
             settoggleAutocomplete(toggleStatus);
-            console.log("toggleAutoCompleeteFields: ");
-            console.log(toggleStatus);
+            console.log("Toggle" + toggleStatus);
     }
 
     function ShowAutoCompleete() {
@@ -132,6 +108,21 @@ export default function ResultsPage() {
         }
     }
 
+    useEffect(() => {
+        setPhoto(recivedPhotoShort);
+        console.log("useEffect updated " + recivedPhotoShort);
+        unsplash.search.photos(recivedPhotoShort, 1, 10)
+        .then(toJson)
+        .then(json => {
+            console.log("useEffect updated list of Photos: ");
+            console.log(json);
+            setResultPhotos(json.results)
+        });
+        
+        }, [recivedPhotoShort]);
+   
+
+
     return (
         <div className="App">
             <div className="top-of-app">
@@ -140,12 +131,12 @@ export default function ResultsPage() {
                     <h4 className="logo-unsplash-h1">The internet’s source of freely-usable images.
                         Powered by creators everywhere.</h4>
                     <div className="search-bar-with-button-container">
-                        <Link to="/about"><button 
+                      <button 
                             className="searchButton"
                             onClick={handleSearchCollections && handleSearchPhotos} 
                             type="submit">
                             Search
-                        </button></Link>
+                        </button>
                         <input className="search-bar"
                             onChangeCapture={autoCompleete}
                             onChange={handleChange} 
@@ -170,4 +161,8 @@ export default function ResultsPage() {
 
         </div>
     );
+    
 }
+
+
+

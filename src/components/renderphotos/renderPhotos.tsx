@@ -13,7 +13,7 @@ class RenderPhotos extends Component<RenderPhotosProps> {
     return (
         <div className="show-images-container">
             {this.props.resultPhotos.map((item: any) => (
-                    <div className="one-result-container">
+                    <div key={item.id} className="one-result-container">
                     <span className="title">{item.title}</span>    
                     <h4 className="title">{item.alt_description}</h4>
                     <img src={item.urls.small} />
