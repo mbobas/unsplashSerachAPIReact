@@ -10,13 +10,11 @@ export default function App() {
     return (
         <BrowserRouter>
             <div className="App">
-               <Nav />
                 <Switch>
                     <Route exact path="/"  component={Home} />
                     <Route exact path="/:modal/:recivedPhoto" component={TestPage} />
                     <Route path="/home" component={Home} />
                     <Route exact path="/:recivedPhoto" component={ResultsPage} />
-                   
                 </Switch>
             </div>
         </BrowserRouter>

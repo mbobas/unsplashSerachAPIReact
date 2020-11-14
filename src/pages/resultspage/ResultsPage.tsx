@@ -5,8 +5,10 @@ import env from '../../env.json'
 import "./ResultsPage.css";
 import RenderListAutocomplete from '../../components/autocomplete/RenderListAutocomplete';
 import RenderPhotos from '../../components/renderphotos/RenderPhotos';
-import Modal from '../../components/modal/Modal';
 import '../../components/modal/Modal.css';
+import { Link } from 'react-router-dom';
+import { IconContext } from 'react-icons';
+import { FaSearch } from 'react-icons/fa';
 
 
 export default function ResultsPage() { 
@@ -37,7 +39,7 @@ export default function ResultsPage() {
             });
     }
     const handleSearchCollections = (event:any) => {
-        unsplash.search.collections(photo, 1, 20)
+        unsplash.search.collections(photo, 1, 5)
             .then(toJson)
             .then(json => {
                 console.log("handleSearchCollections");
@@ -134,17 +136,22 @@ export default function ResultsPage() {
     return (
         <div className="App">
             <div className="top-of-app">
+                <Link to="/"><div className="home-link">Home</div></Link>
+                <a className="about-link" target='_blank' href="https://github.com/mbobas">About</a>
+                
                 <div className="logo-and-searchbar-container">
-                    <h1 className="logo-unsplash-h1">Usnplash Photo Search in React</h1>
-                    <h4 className="logo-unsplash-h1">The internet’s source of freely-usable images.
-                        Powered by creators everywhere.</h4>
+                    <span className="logo-unsplash-big">Usnplash Photo Search in React</span>
+                    <span className="logo-unsplash-small">The internet’s source of freely-usable images.
+                        <br />Powered by creators everywhere.</span>
                     <div className="search-bar-with-button-container">
-                      <button 
-                            className="searchButton"
-                            onClick={handleSearchCollections && handleSearchPhotos} 
-                            type="submit">
-                            Search
-                        </button>
+                        <Link to={'/:'+photo}>
+                            <div className="searchButton"
+                                onClick={handleSearchCollections && handleSearchPhotos}>
+                            <IconContext.Provider value={{ style: {fontSize: '30px', color: "rgb(255,255,255,0.7)"}}}>
+                                <FaSearch />
+                            </IconContext.Provider>
+                            </div>
+                        </Link>
                         <input className="search-bar"
                             onChangeCapture={autoCompleete}
                             onChange={handleChange} 
@@ -154,7 +161,7 @@ export default function ResultsPage() {
                         />
                     </div>
                     <div className="toogleAutocomplete">
-                            <ShowAutoCompleete />
+                    <ShowAutoCompleete />
                             
                     </div>
                 </div>  

@@ -4,17 +4,21 @@ import Unsplash, { toJson } from 'unsplash-js';
 import env from '../../env.json'
 import "./Home.css";
 import RenderListAutocomplete from '../../components/autocomplete/RenderListAutocomplete';
-import RenderPhotos from '../../components/renderphotos/RenderPhotos';
 import { Link } from 'react-router-dom';
+import {IconContext} from "react-icons"
+import {FaSearch} from "react-icons/fa"
 
-export default function Home() { 
+
+export default function ResultsPage() { 
+    //unplashs settings
     const unsplash = new Unsplash({ accessKey: env.API_KEY });
-
-    const [photo, setPhoto] = useState("");
+    //states of 
+    const [photo, setPhoto] = useState("sunset");
     const [clientId, setClientId] = useState(env.API_KEY);
     const [resultCollection, setResultCollection] = useState([]);
     const [resultPhotos, setResultPhotos] = useState([]);
     const [toggleAutocomplete, settoggleAutocomplete] = useState(false);
+    const [modalTitle, setModalTitle] = useState("");
 
     const handleChange = (event: any ) => {
         setPhoto(event.target.value);
@@ -32,7 +36,7 @@ export default function Home() {
             });
     }
     const handleSearchCollections = (event:any) => {
-        unsplash.search.collections(photo, 1, 20)
+        unsplash.search.collections(photo, 1, 5)
             .then(toJson)
             .then(json => {
                 console.log("handleSearchCollections");
@@ -49,7 +53,7 @@ export default function Home() {
           }
     }
     const autoCompleete = (event: any) => {
-        if (event.target.value.length == 3){
+        if (event.target.value.length === 3){
             settoggleAutocomplete(true);
             console.log(toggleAutocomplete);
         }
@@ -61,7 +65,6 @@ export default function Home() {
             console.log(toggleAutocomplete);
         }
     }
-
 
     const updatePhotoCollections = (photo: any) => {
         setPhoto(photo);
@@ -93,32 +96,39 @@ export default function Home() {
     function ShowAutoCompleete() {
         if (toggleAutocomplete) {  
             return (
-                <RenderListAutocomplete 
-                resultCollection={resultCollection} 
-                updatePhotoCollections={updatePhotoCollections} 
-                handleSearchCollections={handleSearchCollections}
-                toggleAutoCompleeteFields={toggleAutoCompleeteFields}
-                updateSearchPhoto={updateSearchPhoto}
-            />)
+                    <RenderListAutocomplete 
+                    resultCollection={resultCollection} 
+                    updatePhotoCollections={updatePhotoCollections} 
+                    handleSearchCollections={handleSearchCollections}
+                    toggleAutoCompleeteFields={toggleAutoCompleeteFields}
+                    updateSearchPhoto={updateSearchPhoto}
+                />
+                )
         } else {
             return (<span>No matches! 👎</span>)
         }
     }
-
     return (
         <div className="App">
             <div className="top-of-app">
+
+                <Link to="/"><div className="home-link">Home</div></Link>
+                <a className="about-link" target='_blank' href="https://github.com/mbobas">About</a>
+
                 <div className="logo-and-searchbar-container">
-                    <h1 className="logo-unsplash-h1">Usnplash Photo Search in React</h1>
-                    <h4 className="logo-unsplash-h1">The internet’s source of freely-usable images.
-                        Powered by creators everywhere.</h4>
+                    <span className="logo-unsplash-big">Usnplash Photo Search in React</span>
+                    <span className="logo-unsplash-small">The internet’s source of freely-usable images.
+                        <br />Powered by creators everywhere.</span>
                     <div className="search-bar-with-button-container">
-                        <Link to={'/:'+photo}><button 
-                            className="searchButton"
-                            onClick={handleSearchCollections && handleSearchPhotos} 
-                            type="submit">
-                            Search
-                        </button></Link>
+                        <Link to={'/:'+photo}>
+                            <div className="searchButton"
+                                onClick={handleSearchCollections && handleSearchPhotos}>
+                            <IconContext.Provider value={{ style: {fontSize: '30px', color: "rgb(255,255,255,0.7)"}}}>
+                                <FaSearch />
+                            </IconContext.Provider>
+                            </div>
+                        </Link>
+
                         <input className="search-bar"
                             onChangeCapture={autoCompleete}
                             onChange={handleChange} 
@@ -128,22 +138,17 @@ export default function Home() {
                         />
                     </div>
                     <div className="toogleAutocomplete">
-                            <ShowAutoCompleete />
+                        <ShowAutoCompleete />
                     </div>
                 </div>  
             </div>
-            
-            {/* <RenderPhotos  
-            resultPhotos={resultPhotos} 
-            updatePhotoCollections={updatePhotoCollections} 
-            handleSearchCollections={handleSearchCollections}
-            toggleAutoCompleeteFields={toggleAutoCompleeteFields}
-            updateSearchPhoto={updateSearchPhoto}
-            /> */}
-
         </div>
     );
 }
+
+
+
+
 
 
 

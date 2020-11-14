@@ -9,40 +9,64 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid red;
+
 }
 .top-of-app {
   display: flex;
   flex-direction: column;
   align-items: center;
   background-image: url(https://images.unsplash.com/photo-1604917538193-34a3111252f8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);
+  /* background-image: url(/src/img/susnet2_big.jpg);  */
   min-height: 100vh;
   width: 100vw;
-  border: 1px solid red;
+
 }
+.home-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 10px;
+  color: rgb(0,0,0,0.5);
+}
+.about-link {
+  position: absolute;
+  top: 0;
+  left: 60px;
+  margin: 10px;
+  color: rgb(0,0,0,0.5);
+}
+  
 .logo-and-searchbar-container {
   display: flex;
   flex-direction: column;
   margin-top: 25vh;
   margin-bottom: 25vh;
   width: 60vw;
-  border: 1px solid red;
+
 
 }
 .search-bar-with-button-container {
   display: flex;
   flex-direction: row;
-  border: 1px solid blue;
-
 }
 
-.logo-unsplash-h1 {
+.logo-unsplash-big {
   margin: 10px;
+  font-weight: 700;
+  color: white;
+  font-size: 40px;
+}
+.logo-unsplash-small {
+  margin-left: 10px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-size: 20px;
+  font-weight: 500;
   color: white;
 }
-.search-bar:hover {
-  background-color: rgba(214, 214, 214, 0.45);
-  box-shadow: 10px 4px 20px 0px rgba(0, 0, 0, 0.05);
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgb(255,255,255,0.7);
+  opacity: 1; /* Firefox */
 }
 
 .search-bar {
@@ -51,14 +75,15 @@ body {
   margin: 10px 10px 0px 10px;
   position: relative;
   padding: 16px;
-  border: 1px solid #979797;
+  border: 4px solid rgb(0,0,0,0.2);
   border-radius: 4px;
   font-family: "Gotham SSm A", "Gotham SSm B", sans-serif;
   font-size: 100%;
   font-weight: 400;
   line-height: normal;
   background-color: transparent;
-  color: #282828;
+  font-weight: 600;
+  color: rgb(255,255,255,0.9);
   outline: none;
   box-shadow: 0px 4px 20px 0px transparent;
   transition: 0.3s background-color ease-in-out, 0.3s box-shadow ease-in-out,
@@ -66,18 +91,27 @@ body {
   -webkit-appearance: none;
   
 }
+
+.search-bar:hover {
+  background-color: rgba(214, 214, 214, 0.45);
+  box-shadow: 10px 4px 20px 0px rgba(0, 0, 0, 0.05);
+}
+
 .searchButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 56px;
   margin: 10px 10px 0px 10px;
-
 }
 
 .toogleAutocomplete {
   display: flex;
   flex-direction: column;
-  border: 1px solid green;
-  margin-left: 90px;
+  border-radius: 5px;
+  margin-left: 78px;
   margin-right: 10px;
+  margin-top: 3px;
   background-color: white;
 }
 
@@ -90,7 +124,7 @@ body {
   
 }
 .show-images-container>* {
-  flex: 0 0 45.33%;
+  flex: 0 0 33.33%;
 }
 
 .one-result-container {

@@ -1,6 +1,6 @@
 import React, {useState, Component} from 'react';
 import { Link } from 'react-router-dom';
-import "./autocompletefield.css";
+import "./RenderListAutocomplete.css";
 
 interface RenderListAutocompleteProps {
     resultCollection: any,
@@ -16,26 +16,17 @@ class RenderListAutocomplete extends Component<RenderListAutocompleteProps> {
     return (
         <div className="field-container">
         {this.props.resultCollection.map((item: any) => (
-            <div className="item">
-            <button 
-                    className="title"
+                <div className="button"
                     onClick={() => {
-                        //this.props.updatePhotoCollections(item.title);
                         this.props.toggleAutoCompleeteFields(false); 
-                        this.props.updateSearchPhoto(item.title)
-                        // this.props.openModal(item.title)
-                    }}
-                >
-                
-                        {item.title}
-                </button>   
+                        this.props.updateSearchPhoto(item.title)}}>
+                    {item.title}
             </div>
             
         ))}
         </div>
     )}
   };
-
 
 export default RenderListAutocomplete;
 
