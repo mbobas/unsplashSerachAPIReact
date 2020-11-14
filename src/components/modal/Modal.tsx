@@ -28,12 +28,19 @@ const Modal = forwardRef((props: any, ref: any) => {
         <div className={"modal-wrapper"}>
         <div onClick={close} className={"modal-backdrop"} />
             <div className={"modal-box"}>
-                {props.title}
-                <img className="img-in-modal" src={props.image} alt="" />
-                {props.firstName}
-                {props.lastName}
-                <button onClick={close}>Close</button>
-                {props.children}
+                <div className={"modal-inside"}>
+                    <div className="profile-wrapper">
+                        <img className="img-profile" src={props.portfolio_image} alt="" />
+                        <div className="frist-and-last-name-and-username-wrapper">
+                            <p><span className="frist-and-last-name">{props.firstName} {props.lastName} </span></p>
+                            <p><span className="username">@{props.username}</span></p>
+                        </div>  
+                        
+                    </div>
+                    
+                    <img className="img-in-modal" src={props.image} alt="" />
+                    
+                </div>
             </div>
         </div>, modalRoot);
     } 

@@ -10,6 +10,11 @@ const RenderPhotos = (props: any) => {
     const [image, setImage] = useState("empty");
     const [firstName, setFirstName] = useState("empty");
     const [lastName, setLastName] = useState("empty");
+    const [update_date, setUpdateDate] = useState("empty");
+    const [location_u, setLocation_u] = useState("empty");
+    const [portfolio_image, setPortfolioImage] = useState("empty");
+    const [username, setUserName] = useState("empty");
+
     const modalRef: any = useRef();
 
     const openModal = () => {
@@ -20,12 +25,17 @@ const RenderPhotos = (props: any) => {
       modalRef.current.closeModal()
     };
 
-    const updateModalParam =(title: string, image: string, firstName: string, lastName: string) => {
+    const updateModalParam =(title: string, image: string, firstName: string, lastName: string,
+        update_date: string, location_u: string, portfolio_image: string, username: string   ) => {
         setModaltitle(title);
         setImage(image);
         setFirstName(firstName);
         setLastName(lastName);
-        console.log(modaltitle)
+        setUpdateDate(update_date)
+        setLocation_u(location_u);
+        setPortfolioImage(portfolio_image);
+        console.log(portfolio_image);
+        setUserName(username);    
     }
 
     useEffect(() => {
@@ -43,6 +53,10 @@ const RenderPhotos = (props: any) => {
                                 item.urls.regular, 
                                 item.user.first_name,
                                 item.user.last_name,
+                                item.user.updated_at,
+                                item.user.location,
+                                item.user.profile_image.small,
+                                item.user.username
                                 );
                         }} 
                         key={item.id} 
@@ -60,6 +74,11 @@ const RenderPhotos = (props: any) => {
                     image={image} 
                     firstName={firstName} 
                     lastName={lastName} 
+                    update_date={update_date}
+                    location_u={location_u}
+                    portfolio_image={portfolio_image}
+                    username={username}
+
                     ref={modalRef}>
                         
                     </Modal>   
