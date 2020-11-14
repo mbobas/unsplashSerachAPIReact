@@ -13,7 +13,7 @@ export default function App() {
                <Nav />
                 <Switch>
                     <Route exact path="/"  component={Home} />
-                    <Route path="/about" component={TestPage} />
+                    <Route exact path="/:modal/:recivedPhoto" component={TestPage} />
                     <Route path="/home" component={Home} />
                     <Route exact path="/:recivedPhoto" component={ResultsPage} />
                    

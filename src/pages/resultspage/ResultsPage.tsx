@@ -18,6 +18,7 @@ export default function ResultsPage() {
     const [resultCollection, setResultCollection] = useState([]);
     const [resultPhotos, setResultPhotos] = useState([]);
     const [toggleAutocomplete, settoggleAutocomplete] = useState(false);
+    
 
     const handleChange = (event: any ) => {
         setPhoto(event.target.value);
