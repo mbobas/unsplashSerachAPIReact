@@ -1,6 +1,8 @@
 import { title } from 'process';
 import React, {useState, forwardRef, useImperativeHandle} from 'react';
 import ReactDOM from "react-dom";
+import {IconContext} from "react-icons"
+import {FaMapMarkerAlt} from "react-icons/fa"
 
 const modalRoot: any  = document.getElementById("modal-root");
 
@@ -39,7 +41,12 @@ const Modal = forwardRef((props: any, ref: any) => {
                     </div>
                     
                     <img className="img-in-modal" src={props.image} alt="" />
-                    
+                    <div className="geo-wrapper">
+                        <IconContext.Provider value={{ style: {fontSize: '15px', color: "rgb(0,0,0,0.3)"}}}>
+                            <FaMapMarkerAlt />
+                        </IconContext.Provider>
+                        <div className="geo-text">{props.location_u}</div>
+                    </div>
                 </div>
             </div>
         </div>, modalRoot);

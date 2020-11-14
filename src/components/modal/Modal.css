@@ -68,11 +68,21 @@
     margin-left: 10px;
     font-size: 14px;
     font-weight: 600;
+    color: rgb(0,0,0,0.3);
 }
 
 .img-in-modal {
-
+    margin-bottom: 20px;
     max-height: 80%;
     max-width: 80%;
 
+}
+.geo-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+.geo-text {
+    margin-left: 10px;
+    font-size: 13px;
+    font-weight: 500;
 }

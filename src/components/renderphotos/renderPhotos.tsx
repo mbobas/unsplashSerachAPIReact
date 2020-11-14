@@ -62,8 +62,6 @@ const RenderPhotos = (props: any) => {
                         key={item.id} 
                         className="one-result-container"
                     >
-                    <span className="title">{item.description}</span>    
-                    <h4 className="title">{item.alt_description}</h4>
                     <img src={item.urls.small} alt="" />
                     
                 </div>
