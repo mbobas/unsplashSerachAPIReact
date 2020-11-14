@@ -21,15 +21,6 @@ export default function ResultsPage() {
     const [toggleAutocomplete, settoggleAutocomplete] = useState(false);
     const [modalTitle, setModalTitle] = useState("");
 
-    const modalRef: any = useRef();
-
-    const openModal = () => {
-      modalRef.current.openModal()
-    }
-    const closeModal = () => {
-        modalRef.current.closeModal()
-      };
-
     const handleChange = (event: any ) => {
         setPhoto(event.target.value);
         console.log("handleChange: value");
@@ -76,7 +67,6 @@ export default function ResultsPage() {
         }
     }
 
-
     const updatePhotoCollections = (photo: any) => {
         setPhoto(photo);
         unsplash.search.collections(photo, 1, 20)
@@ -102,7 +92,6 @@ export default function ResultsPage() {
     const updateModalParam = (title: any) => {
         setModalTitle(title);
         console.log('Modal title: ' + modalTitle)
-        openModal();
         console.log('Modal title: ' + modalTitle)
     }
 
@@ -166,22 +155,13 @@ export default function ResultsPage() {
                     </div>
                     <div className="toogleAutocomplete">
                             <ShowAutoCompleete />
-                            <Modal ref={modalRef}>
-                                <h1>Modal Header</h1>
-                                <p>
-                                Modal title: {modalTitle}
-                                <span>Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum</span>
-                                </p>
-                                <button onClick={closeModal}>Colose</button>
-
-                            </Modal>
+                            
                     </div>
                 </div>  
             </div>
             
             <RenderPhotos  
-            resultPhotos={resultPhotos} 
-            updateModalParam={updateModalParam}
+                resultPhotos={resultPhotos} 
             />
 
         </div>

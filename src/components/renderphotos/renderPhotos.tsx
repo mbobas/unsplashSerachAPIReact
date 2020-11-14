@@ -1,19 +1,15 @@
-import React, {useState, Component} from 'react';
-import "./renderPhotos.css";
+import React, {useState, Component, } from 'react';
+import Modal from '../modal/Modal';
+// import '../modal/Modal.css';
+// import "./renderPhotos.css";
 
-interface RenderPhotosProps {
-    resultPhotos: any,
-    updateModalParam: any
-}
-class RenderPhotos extends Component<RenderPhotosProps> {
-    render() {
+
+const RenderPhotos = (props: any) => {
+
     return (
         <div className="show-images-container">
-            {this.props.resultPhotos.map((item: any) => (
+            {props.resultPhotos.map((item: any) => (
                     <div 
-                        onClick={() => {
-                            this.props.updateModalParam(item.title); 
-                        }}
                         key={item.id} 
                         className="one-result-container"
                     >
@@ -23,8 +19,7 @@ class RenderPhotos extends Component<RenderPhotosProps> {
                     </div>
                 ))}
         </div>
-    )}
-  };
+    )};
 
 export default RenderPhotos;
 
