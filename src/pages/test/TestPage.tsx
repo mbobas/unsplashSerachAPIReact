@@ -12,6 +12,11 @@ function TestPage() {
     const openModal = () => {
       modalRef.current.openModal()
     };
+
+    const closeModal = () => {
+      modalRef.current.closeModal()
+    };
+    
     
     return (
       <div className="ModalPage">
@@ -23,7 +28,7 @@ function TestPage() {
               <span>{sModal} {sRecivedPhoto} </span>
               <span>Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum</span>
             </p>
-
+            <button onClick={closeModal}>Colose</button>
           </Modal>
 
       </div>

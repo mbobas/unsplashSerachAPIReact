@@ -1,11 +1,12 @@
-import React, {useState, useEffect } from 'react';
+import React, {useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router';
 import Unsplash, { toJson } from 'unsplash-js';
 import env from '../../env.json'
 import "./ResultsPage.css";
 import RenderListAutocomplete from '../../components/autocomplete/RenderListAutocomplete';
 import RenderPhotos from '../../components/renderphotos/RenderPhotos';
-import { Link } from 'react-router-dom';
+import Modal from '../../components/modal/Modal';
+import '../../components/modal/Modal.css';
 
 
 export default function ResultsPage() { 
@@ -18,7 +19,16 @@ export default function ResultsPage() {
     const [resultCollection, setResultCollection] = useState([]);
     const [resultPhotos, setResultPhotos] = useState([]);
     const [toggleAutocomplete, settoggleAutocomplete] = useState(false);
-    
+    const [modalTitle, setModalTitle] = useState("");
+
+    const modalRef: any = useRef();
+
+    const openModal = () => {
+      modalRef.current.openModal()
+    }
+    const closeModal = () => {
+        modalRef.current.closeModal()
+      };
 
     const handleChange = (event: any ) => {
         setPhoto(event.target.value);
@@ -89,6 +99,13 @@ export default function ResultsPage() {
         });
     }
 
+    const updateModalParam = (title: any) => {
+        setModalTitle(title);
+        console.log('Modal title: ' + modalTitle)
+        openModal();
+        console.log('Modal title: ' + modalTitle)
+    }
+
     const toggleAutoCompleeteFields = (toggleStatus: any) => {
             settoggleAutocomplete(toggleStatus);
             console.log("Toggle" + toggleStatus);
@@ -97,13 +114,14 @@ export default function ResultsPage() {
     function ShowAutoCompleete() {
         if (toggleAutocomplete) {  
             return (
-                <RenderListAutocomplete 
-                resultCollection={resultCollection} 
-                updatePhotoCollections={updatePhotoCollections} 
-                handleSearchCollections={handleSearchCollections}
-                toggleAutoCompleeteFields={toggleAutoCompleeteFields}
-                updateSearchPhoto={updateSearchPhoto}
-            />)
+                    <RenderListAutocomplete 
+                    resultCollection={resultCollection} 
+                    updatePhotoCollections={updatePhotoCollections} 
+                    handleSearchCollections={handleSearchCollections}
+                    toggleAutoCompleeteFields={toggleAutoCompleeteFields}
+                    updateSearchPhoto={updateSearchPhoto}
+                />
+                )
         } else {
             return (<span>No matches! 👎</span>)
         }
@@ -148,16 +166,22 @@ export default function ResultsPage() {
                     </div>
                     <div className="toogleAutocomplete">
                             <ShowAutoCompleete />
+                            <Modal ref={modalRef}>
+                                <h1>Modal Header</h1>
+                                <p>
+                                Modal title: {modalTitle}
+                                <span>Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum</span>
+                                </p>
+                                <button onClick={closeModal}>Colose</button>
+
+                            </Modal>
                     </div>
                 </div>  
             </div>
             
             <RenderPhotos  
             resultPhotos={resultPhotos} 
-            updatePhotoCollections={updatePhotoCollections} 
-            handleSearchCollections={handleSearchCollections}
-            toggleAutoCompleeteFields={toggleAutoCompleeteFields}
-            updateSearchPhoto={updateSearchPhoto}
+            updateModalParam={updateModalParam}
             />
 
         </div>

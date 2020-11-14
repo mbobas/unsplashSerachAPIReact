@@ -11,6 +11,7 @@ interface RenderListAutocompleteProps {
 }
 
 class RenderListAutocomplete extends Component<RenderListAutocompleteProps> {
+
     render() {
     return (
         <div className="field-container">
@@ -22,6 +23,7 @@ class RenderListAutocomplete extends Component<RenderListAutocompleteProps> {
                         //this.props.updatePhotoCollections(item.title);
                         this.props.toggleAutoCompleeteFields(false); 
                         this.props.updateSearchPhoto(item.title)
+                        // this.props.openModal(item.title)
                     }}
                 >
                 
