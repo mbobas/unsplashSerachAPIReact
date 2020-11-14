@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 const modalRoot: any  = document.getElementById("modal-root");
 
 const Modal = forwardRef((props: any, ref: any) => {
-    const [display, setDisplay] = useState(true);
+    const [display, setDisplay] = useState(false);
 
     useImperativeHandle(ref, () => {
         return {

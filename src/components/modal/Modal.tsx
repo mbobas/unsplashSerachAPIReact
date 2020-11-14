@@ -1,3 +1,4 @@
+import { title } from 'process';
 import React, {useState, forwardRef, useImperativeHandle} from 'react';
 import ReactDOM from "react-dom";
 
@@ -27,7 +28,12 @@ const Modal = forwardRef((props: any, ref: any) => {
         <div className={"modal-wrapper"}>
         <div onClick={close} className={"modal-backdrop"} />
             <div className={"modal-box"}>
-            {props.children}
+                {props.title}
+                <img className="img-in-modal" src={props.image} alt="" />
+                {props.firstName}
+                {props.lastName}
+                <button onClick={close}>Close</button>
+                {props.children}
             </div>
         </div>, modalRoot);
     } 
