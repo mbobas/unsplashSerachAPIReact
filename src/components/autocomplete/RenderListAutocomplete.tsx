@@ -11,9 +11,9 @@ interface RenderListAutocompleteProps {
 }
 
 class RenderListAutocomplete extends Component<RenderListAutocompleteProps> {
-
     render() {
-    return (
+    if (this.props.resultCollection.length > 0) {
+        return (
         <div className="field-container">
         {this.props.resultCollection.map((item: any) => (
                 <Link to={'/:' + item.title}><div className="button"
@@ -25,8 +25,12 @@ class RenderListAutocomplete extends Component<RenderListAutocompleteProps> {
             </div></Link>
             
         ))}
+        
         </div>
-    )}
+    )} else {
+        return (<span>No matches! 👎</span>)
+    }    
+    }
   };
 
 export default RenderListAutocomplete;

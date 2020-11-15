@@ -96,22 +96,6 @@ export default function Home() {
             console.log("Toggle" + toggleStatus);
     }
 
-    // function ShowAutoCompleete() {
-    //     if (toggleAutocomplete) {  
-    //         return (
-    //                 <RenderListAutocomplete 
-    //                 resultCollection={resultCollection} 
-    //                 updatePhotoCollections={updatePhotoCollections} 
-    //                 handleSearchCollections={handleSearchCollections}
-    //                 toggleAutoCompleeteFields={toggleAutoCompleeteFields}
-    //                 updateSearchPhoto={updateSearchPhoto}
-    //             />
-    //             )
-    //     } else {
-    //         return (<span>No matches! 👎</span>)
-    //     }
-    // }
-
     function ShowAutoCompleete() {
         if (toggleAutocomplete) {  
             return (
