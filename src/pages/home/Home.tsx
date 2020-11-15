@@ -4,14 +4,14 @@ import Unsplash, { toJson } from 'unsplash-js';
 import env from '../../env.json'
 import "./Home.css";
 import RenderListAutocomplete from '../../components/autocomplete/RenderListAutocomplete';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, Route, useLocation, withRouter } from 'react-router-dom';
 import {IconContext} from "react-icons"
 import {FaSearch} from "react-icons/fa"
 
 
-export default function ResultsPage() { 
+export default function Home() { 
     //unplashs settings
-    const unsplash = new Unsplash({ accessKey: env.API_KEY });
+    const unsplash = new Unsplash({ accessKey: "sDI3L3I2mgA91a4deHN4BevefU63v8_yMhgYmrtHy6k"});
     //states of 
     const [photo, setPhoto] = useState("sunset");
     const [clientId, setClientId] = useState(env.API_KEY);
@@ -19,6 +19,8 @@ export default function ResultsPage() {
     const [resultPhotos, setResultPhotos] = useState([]);
     const [toggleAutocomplete, settoggleAutocomplete] = useState(false);
     const [modalTitle, setModalTitle] = useState("");
+
+    const location = useLocation();
 
     const handleChange = (event: any ) => {
         setPhoto(event.target.value);
@@ -50,6 +52,7 @@ export default function ResultsPage() {
             console.log('OnKeyDown: ' + photo);
             updateSearchPhoto(photo);
             settoggleAutocomplete(false);
+
           }
     }
     const autoCompleete = (event: any) => {
