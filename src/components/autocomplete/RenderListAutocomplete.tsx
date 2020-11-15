@@ -16,7 +16,7 @@ class RenderListAutocomplete extends Component<RenderListAutocompleteProps> {
         return (
         <div className="field-container">
         {this.props.resultCollection.map((item: any) => (
-                <Link to={'/:' + item.title}><div className="button"
+                <Link to={'/:' + item.title}><div key={item.id} className="button"
                 onClick={() => {
                     this.props.toggleAutoCompleeteFields(false);
                     this.props.updateSearchPhoto(item.title);

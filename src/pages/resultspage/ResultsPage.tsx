@@ -113,6 +113,8 @@ export default function ResultsPage() {
                     updateSearchPhoto={updateSearchPhoto}
                 />
                 )
+        } else if (toggleAutocomplete == false) {
+            return (<span></span>);
         } else {
             return (<span>No matches! 👎</span>)
         }
