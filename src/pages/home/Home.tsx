@@ -14,7 +14,7 @@ export default function Home() {
     const unsplash = new Unsplash({ accessKey: "sDI3L3I2mgA91a4deHN4BevefU63v8_yMhgYmrtHy6k"});
     //states of 
     const [photo, setPhoto] = useState("sunset");
-    const [clientId, setClientId] = useState(env.API_KEY);
+    const [clientId, setClientId] = useState("sDI3L3I2mgA91a4deHN4BevefU63v8_yMhgYmrtHy6k");
     const [resultCollection, setResultCollection] = useState([]);
     const [resultPhotos, setResultPhotos] = useState([]);
     const [toggleAutocomplete, settoggleAutocomplete] = useState(false);
