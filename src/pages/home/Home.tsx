@@ -109,19 +109,19 @@ export default function ResultsPage() {
         }
     }
     return (
-        <div className="App">
-            <div className="top-of-app">
+        <div className="AppH">
+            <div className="top-of-appH">
 
-                <Link to="/"><div className="home-link">Home</div></Link>
-                <a className="about-link" target='_blank' href="https://github.com/mbobas">About</a>
+                <Link to="/"><div className="home-linkH">Home</div></Link>
+                <a className="about-linkH" target='_blank' href="https://github.com/mbobas">About</a>
 
-                <div className="logo-and-searchbar-container">
-                    <span className="logo-unsplash-big">Usnplash Photo Search in React</span>
-                    <span className="logo-unsplash-small">The internet’s source of freely-usable images.
+                <div className="logo-and-searchbar-containerH">
+                    <span className="logo-unsplash-bigH">Usnplash Photo Search in React</span>
+                    <span className="logo-unsplash-smallH">The internet’s source of freely-usable images.
                         <br />Powered by creators everywhere.</span>
-                    <div className="search-bar-with-button-container">
+                    <div className="search-bar-with-button-containerH">
                         <Link to={'/:'+photo}>
-                            <div className="searchButton"
+                            <div className="searchButtonH"
                                 onClick={handleSearchCollections && handleSearchPhotos}>
                             <IconContext.Provider value={{ style: {fontSize: '30px', color: "rgb(255,255,255,0.7)"}}}>
                                 <FaSearch />
@@ -129,7 +129,7 @@ export default function ResultsPage() {
                             </div>
                         </Link>
 
-                        <input className="search-bar"
+                        <input className="search-barH"
                             onChangeCapture={autoCompleete}
                             onChange={handleChange} 
                             onKeyDown={onKeyDown}
@@ -137,7 +137,7 @@ export default function ResultsPage() {
                             placeholder="Search for high resolution photos" 
                         />
                     </div>
-                    <div className="toogleAutocomplete">
+                    <div className="toogleAutocompleteH">
                         <ShowAutoCompleete />
                     </div>
                 </div>  

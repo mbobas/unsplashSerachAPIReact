@@ -5,69 +5,77 @@
 body {
   
 }
-.App {
+.AppR {
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
-.top-of-app {
+.top-of-appR {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image: url(https://images.unsplash.com/photo-1604917538193-34a3111252f8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);
-  /* background-image: url(/src/img/susnet2_big.jpg);  */
-  min-height: 100vh;
+  justify-content: flex-start;
+  background-color:white;
   width: 100vw;
-
 }
-.home-link {
+.home-linkR {
   position: absolute;
   top: 0;
   left: 0;
   margin: 10px;
   color: rgb(0,0,0,0.5);
+  
 }
-.logo-and-searchbar-container {
+
+.about-linkR {
+  position: absolute;
+  top: 0;
+  left: 60px;
+  margin: 10px;
+  color: rgb(0,0,0,0.5);
+}
+
+.logo-and-searchbar-containerR {
   display: flex;
   flex-direction: column;
-  margin-top: 25vh;
+  margin-top: 3vh;
   margin-bottom: 25vh;
   width: 60vw;
-
-
 }
-.search-bar-with-button-container {
+.search-bar-with-button-containerR {
   display: flex;
   flex-direction: row;
+  border: 4px solid rgb(0,0,0,0.2);
+  
 }
 
-.logo-unsplash-big {
-  margin: 10px;
+.text-to-findeR {
+  margin-top: 30px;
+  margin-left: -6%;
   font-weight: 700;
-  color: white;
+  color: black;
   font-size: 40px;
 }
-.logo-unsplash-small {
+.logo-unsplash-smallR {
   margin-left: 10px;
   margin-top: 30px;
   margin-bottom: 30px;
   font-size: 20px;
   font-weight: 500;
-  color: white;
+  color: black;
 }
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: rgb(255,255,255,0.7);
+  color: rgb(0,0,0,0.7);
   opacity: 1; /* Firefox */
 }
 
-.search-bar {
+.search-barR {
   width: 100%;
   height: 56px;
   margin: 10px 10px 0px 10px;
   position: relative;
   padding: 16px;
-  border: 4px solid rgb(0,0,0,0.2);
+  border: 0;
   border-radius: 4px;
   font-family: "Gotham SSm A", "Gotham SSm B", sans-serif;
   font-size: 100%;
@@ -75,13 +83,12 @@ body {
   line-height: normal;
   background-color: transparent;
   font-weight: 600;
-  color: rgb(255,255,255,0.9);
+  color: rgb(0,0,0,0.9);
   outline: none;
   box-shadow: 0px 4px 20px 0px transparent;
   transition: 0.3s background-color ease-in-out, 0.3s box-shadow ease-in-out,
     0.1s padding ease-in-out;
   -webkit-appearance: none;
-  
 }
 
 .search-bar:hover {
@@ -89,15 +96,15 @@ body {
   box-shadow: 10px 4px 20px 0px rgba(0, 0, 0, 0.05);
 }
 
-.searchButton {
+.searchButtonR {
   display: flex;
-  justify-content: center;
+  align-self: stretch;
   align-items: center;
   height: 56px;
   margin: 10px 10px 0px 10px;
 }
 
-.toogleAutocomplete {
+.toogleAutocompleteR {
   display: flex;
   flex-direction: column;
   border-radius: 5px;
@@ -107,19 +114,18 @@ body {
   background-color: white;
 }
 
-.show-images-container {
+.show-images-containerR {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   margin-top: -20vh;
-  
 }
-.show-images-container>* {
+.show-images-containerR>* {
   flex: 0 0 33.33%;
 }
 
-.one-result-container {
+.one-result-containerR {
   display: flex;
   flex-direction: column;
   margin: 10px;

@@ -44,44 +44,44 @@ const RenderPhotos = (props: any) => {
    
 
     return (
-        <div className="show-images-container">
-            {props.resultPhotos.map((item: any) => (
-                <div   onClick={() => {
-                            openModal();
-                            updateModalParam(
-                                item.description, 
-                                item.urls.regular, 
-                                item.user.first_name,
-                                item.user.last_name,
-                                item.user.updated_at,
-                                item.user.location,
-                                item.user.profile_image.small,
-                                item.user.username
-                                );
-                        }} 
-                        key={item.id} 
-                        className="one-result-container"
-                    >
-                    <img src={item.urls.small} alt="" />
-                    
-                </div>
-                ))}
-            <div className="">
-                    <Modal 
-                    title={modaltitle} 
-                    image={image} 
-                    firstName={firstName} 
-                    lastName={lastName} 
-                    update_date={update_date}
-                    location_u={location_u}
-                    portfolio_image={portfolio_image}
-                    username={username}
-
-                    ref={modalRef}>
+            <div className="show-images-container">
+                {props.resultPhotos.map((item: any) => (
+                    <div   onClick={() => {
+                                openModal();
+                                updateModalParam(
+                                    item.description, 
+                                    item.urls.regular, 
+                                    item.user.first_name,
+                                    item.user.last_name,
+                                    item.user.updated_at,
+                                    item.user.location,
+                                    item.user.profile_image.small,
+                                    item.user.username
+                                    );
+                            }} 
+                            key={item.id} 
+                            className="one-result-container"
+                        >
+                        <img src={item.urls.small} alt="" />
                         
-                    </Modal>   
+                    </div>
+                    ))}
+                <div className="">
+                        <Modal 
+                        title={modaltitle} 
+                        image={image} 
+                        firstName={firstName} 
+                        lastName={lastName} 
+                        update_date={update_date}
+                        location_u={location_u}
+                        portfolio_image={portfolio_image}
+                        username={username}
+
+                        ref={modalRef}>
+                            
+                        </Modal>   
+                </div>
             </div>
-        </div>
     )};
 
 export default RenderPhotos;
