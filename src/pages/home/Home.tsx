@@ -4,14 +4,14 @@ import Unsplash, { toJson } from 'unsplash-js';
 import env from '../../env.json'
 import "./Home.css";
 import RenderListAutocomplete from '../../components/autocomplete/RenderListAutocomplete';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, Route, useLocation, withRouter } from 'react-router-dom';
 import {IconContext} from "react-icons"
 import {FaSearch} from "react-icons/fa"
 
 
-export default function ResultsPage() { 
+export default function Home() { 
     //unplashs settings
-    const unsplash = new Unsplash({ accessKey: env.API_KEY });
+    const unsplash = new Unsplash({ accessKey: "sDI3L3I2mgA91a4deHN4BevefU63v8_yMhgYmrtHy6k"});
     //states of 
     const [photo, setPhoto] = useState("sunset");
     const [clientId, setClientId] = useState(env.API_KEY);
@@ -19,6 +19,8 @@ export default function ResultsPage() {
     const [resultPhotos, setResultPhotos] = useState([]);
     const [toggleAutocomplete, settoggleAutocomplete] = useState(false);
     const [modalTitle, setModalTitle] = useState("");
+
+    const location = useLocation();
 
     const handleChange = (event: any ) => {
         setPhoto(event.target.value);
@@ -50,6 +52,7 @@ export default function ResultsPage() {
             console.log('OnKeyDown: ' + photo);
             updateSearchPhoto(photo);
             settoggleAutocomplete(false);
+
           }
     }
     const autoCompleete = (event: any) => {
@@ -109,19 +112,19 @@ export default function ResultsPage() {
         }
     }
     return (
-        <div className="App">
-            <div className="top-of-app">
+        <div className="AppH">
+            <div className="top-of-appH">
 
-                <Link to="/"><div className="home-link">Home</div></Link>
-                <a className="about-link" target='_blank' href="https://github.com/mbobas">About</a>
+                <Link to="/"><div className="home-linkH">Home</div></Link>
+                <a className="about-linkH" target='_blank' href="https://github.com/mbobas">About</a>
 
-                <div className="logo-and-searchbar-container">
-                    <span className="logo-unsplash-big">Usnplash Photo Search in React</span>
-                    <span className="logo-unsplash-small">The internet’s source of freely-usable images.
+                <div className="logo-and-searchbar-containerH">
+                    <span className="logo-unsplash-bigH">Usnplash Photo Search in React</span>
+                    <span className="logo-unsplash-smallH">The internet’s source of freely-usable images.
                         <br />Powered by creators everywhere.</span>
-                    <div className="search-bar-with-button-container">
+                    <div className="search-bar-with-button-containerH">
                         <Link to={'/:'+photo}>
-                            <div className="searchButton"
+                            <div className="searchButtonH"
                                 onClick={handleSearchCollections && handleSearchPhotos}>
                             <IconContext.Provider value={{ style: {fontSize: '30px', color: "rgb(255,255,255,0.7)"}}}>
                                 <FaSearch />
@@ -129,7 +132,7 @@ export default function ResultsPage() {
                             </div>
                         </Link>
 
-                        <input className="search-bar"
+                        <input className="search-barH"
                             onChangeCapture={autoCompleete}
                             onChange={handleChange} 
                             onKeyDown={onKeyDown}
@@ -137,7 +140,7 @@ export default function ResultsPage() {
                             placeholder="Search for high resolution photos" 
                         />
                     </div>
-                    <div className="toogleAutocomplete">
+                    <div className="toogleAutocompleteH">
                         <ShowAutoCompleete />
                     </div>
                 </div>  

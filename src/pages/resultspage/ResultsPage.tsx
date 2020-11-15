@@ -134,25 +134,22 @@ export default function ResultsPage() {
 
 
     return (
-        <div className="App">
-            <div className="top-of-app">
-                <Link to="/"><div className="home-link">Home</div></Link>
-                <a className="about-link" target='_blank' href="https://github.com/mbobas">About</a>
-                
-                <div className="logo-and-searchbar-container">
-                    <span className="logo-unsplash-big">Usnplash Photo Search in React</span>
-                    <span className="logo-unsplash-small">The internet’s source of freely-usable images.
-                        <br />Powered by creators everywhere.</span>
-                    <div className="search-bar-with-button-container">
+        <div className="AppR">
+            <div className="top-of-appR">
+                <Link to="/"><div className="home-linkR">Home</div></Link>
+                <a className="about-linkR" target='_blank' href="https://github.com/mbobas">About</a>
+
+                <div className="logo-and-searchbar-containerR">
+                    <div className="search-bar-with-button-containerR">
                         <Link to={'/:'+photo}>
-                            <div className="searchButton"
+                            <div className="searchButtonR"
                                 onClick={handleSearchCollections && handleSearchPhotos}>
-                            <IconContext.Provider value={{ style: {fontSize: '30px', color: "rgb(255,255,255,0.7)"}}}>
+                            <IconContext.Provider value={{ style: {fontSize: '30px', color: "rgb(0,0,0,0.6)"}}}>
                                 <FaSearch />
                             </IconContext.Provider>
                             </div>
                         </Link>
-                        <input className="search-bar"
+                        <input className="search-barR"
                             onChangeCapture={autoCompleete}
                             onChange={handleChange} 
                             onKeyDown={onKeyDown}
@@ -160,11 +157,12 @@ export default function ResultsPage() {
                             placeholder="Search for high resolution photos" 
                         />
                     </div>
-                    <div className="toogleAutocomplete">
-                    <ShowAutoCompleete />
-                            
+                    <div className="toogleAutocompleteR">
+                        <ShowAutoCompleete />     
                     </div>
+                    <span className="text-to-findeR">{photo}</span>
                 </div>  
+                
             </div>
             
             <RenderPhotos  

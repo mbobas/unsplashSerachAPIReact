@@ -16,12 +16,13 @@ class RenderListAutocomplete extends Component<RenderListAutocompleteProps> {
     return (
         <div className="field-container">
         {this.props.resultCollection.map((item: any) => (
-                <div className="button"
-                    onClick={() => {
-                        this.props.toggleAutoCompleeteFields(false); 
-                        this.props.updateSearchPhoto(item.title)}}>
-                    {item.title}
-            </div>
+                <Link to={'/:' + item.title}><div className="button"
+                onClick={() => {
+                    this.props.toggleAutoCompleeteFields(false);
+                    this.props.updateSearchPhoto(item.title);
+                } }>
+                {item.title}
+            </div></Link>
             
         ))}
         </div>
