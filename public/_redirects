@@ -1,0 +1,7 @@
+#/*    /index.html   200
+# Redirects from what the browser requests to what we serve
+/                               /
+/:modal/:recivedPhoto       /:modal/:recivedPhoto
+/home                        /home
+/cut:recivedPhoto"ies     /:recivedPhoto"
+
